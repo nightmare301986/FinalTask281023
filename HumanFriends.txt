@@ -1,0 +1,155 @@
+mysql> CREATE DATABASE `HumanFriends`;
+
+CREATE TABLE Dogs
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+CREATE TABLE Cats
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+CREATE TABLE Hamsters
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+CREATE TABLE Horses
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+CREATE TABLE Camels
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+CREATE TABLE Donkeys
+(
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE
+);
+
+INSERT INTO Cats (id, Name, Type, Commands, BirthDate)
+VALUES(1001,'Baghira', 'Cat', 'stand up', date'2015-05-13'), (1002,'Masya', 'Cat', 'jump', date'2017-03-11'), (1003,'Rick', 'Cat', 'sit', date'2018-06-21');
+
+INSERT INTO Dogs (id, Name, Type, Commands, BirthDate)
+VALUES(1004,'Baikal', 'Dog', 'run', date'2015-01-01'), (1005, 'Tur', 'Dog', 'come up, leave', date'2019-03-11'), (1006,'Rex', 'Dog', 'sit, run, give', date'2013-10-18');
+
+INSERT INTO Hamsters (id, Name, Type, Commands, BirthDate)
+VALUES(1007,'Henrietta', 'Hamster', 'run', date'2019-08-08'), (1008, 'Pirs', 'Hamster', 'come up', date'2021-12-11'), (1009, 'Nemizida', 'Hamster', 'run', date'2022-01-02'), (1010, 'Dream', 'Hamster', 'run', date'2022-01-12');
+
+INSERT INTO Horses (id, Name, Type, Commands, BirthDate)
+VALUES(1011,'Blues', 'Horse', 'run, go slowly', date'2020-11-08'), (1012, 'Peero', 'Horse', 'come up', date'2017-11-19'), (1013, 'Hordie', 'Horse', 'trot, escape', date'2012-01-25'), (1014, 'Flipper', 'Horse', 'go slowly', date'2019-01-19'), (1015, 'Kent', 'Horse', 'trot, run', date'2019-01-19');
+
+INSERT INTO Camels (id, Name, Type, Commands, BirthDate)
+VALUES(1016,'Pixie', 'Camel', 'trot', date'2018-09-01'), (1017, 'Genome', 'Camel', 'come up', date'2020-01-19');
+
+INSERT INTO Donkeys (id, Name, Type, Commands, BirthDate)
+VALUES(1018,'Gordy', 'Donkey', 'run', date'2020-11-09'), (1019, 'Atry', 'Donkey', 'go away', date'2017-12-29'), (1020, 'Dreamer', 'Donkey', 'come here, go', date'2021-01-01');
+
+# Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+TRUNCATE TABLE Camels;
+
+SELECT * FROM Horses 
+UNION SELECT * FROM Donkeys
+AS `PAnims`;
+
+CREATE TABLE `YoungAnimals`
+SELECT id, Name, Type, Commands, BirthDate,
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Dogs
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+UNION
+SELECT id, Name, Type, Commands, BirthDate, 
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Cats
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+UNION
+SELECT id, Name, Type, Commands, BirthDate, 
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Hamsters
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+UNION
+SELECT id, Name, Type, Commands, BirthDate,
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Horses
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+UNION
+SELECT id, Name, Type, Commands, BirthDate, 
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Camels
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+UNION
+SELECT id, Name, Type, Commands, BirthDate, 
+(YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) AS Возраст
+FROM Donkeys
+WHERE (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) < 3 
+AND (YEAR(CURRENT_DATE)-YEAR(BirthDate)) - (RIGHT(CURRENT_DATE,5)<RIGHT(BirthDate,5)) > 1
+ORDER BY id;
+
+ALTER TABLE `YoungAnimals` ADD COLUMN ВозрастПолный VARCHAR (30);
+UPDATE `YoungAnimals` SET ВозрастПолный = (CONCAT(TIMESTAMPDIFF(YEAR, BirthDate, CURRENT_DATE),' года ', 
+			TIMESTAMPDIFF(MONTH, BirthDate, CURRENT_DATE) % 12, ' месяцев '));
+
+CREATE TABLE `AllAnimals` (
+    id INT,
+    Name VARCHAR(45),
+    Type VARCHAR(15),
+    Commands VARCHAR(45),
+    BirthDate DATE,
+    NameofTable ENUM('Cats','Dogs','Hamsters', 'Horses', 'Donkeys', 'Camels') 
+);
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Cats'
+FROM Cats;
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Dogs'
+FROM Dogs;
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Hamsters'
+FROM Hamsters;
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Horses'
+FROM Horses;
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Donkeys'
+FROM Donkeys;
+
+INSERT INTO `AllAnimals` (id, Name, Type, Commands, BirthDate, NameofTable)
+SELECT id, Name, Type, Commands, BirthDate, 'Camels'
+FROM Camels;
